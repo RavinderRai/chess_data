@@ -36,6 +36,24 @@ In this step there were three text columns to handle. A count vectorizer functio
 
 In the modeling step many different models were tried, but mostly focusing on logistic regression, random forest, and XGBoost. With the help of grid search, the best model parameters for each model was obtained and compared in the end. That being said, the scoring metric was a bit non-traditional, in that the Cohen Kappa score was used here. Since this dataset is imbalanced (significanly less games ended in draws then white or black winning) with multiple labels, this scoring metric was a much better option than something like accuracy. The Cohen Kappa score measures how similar in agreement two raters are, where you can think of raters as people who are rating certain things, like movies. This can then be naturally used for classification problems, where one rater is the actual values of the target variable, and the other is the predicted values of the model. Thus, we can now report the Cohen Kappa scores for each of the best models.
 
+![model metrics df image](figures/model_metrics.jpg)
+
 ## Applying the Model
 
 [Model Utilization Notebook](https://github.com/RavinderRai/Chess_Data/blob/main/Final_Model_Review.ipynb)
+
+To end this project, we can use the model on the test set to see how it might be useful in practice. Imagine a chess player came to you with only about 10 recorded chess games under his belt. That may not be enough data to gether any insights on his good or bad strategies, but the model was trained on over 20000 chess games, so it might do a better job. For example, there is a player with player ID zen3000. Below is a plot of some interesting insights.
+
+![zen3000 comparison plot](figures/comparison_plot_zen3000.jpg)
+
+From a plot like this, you can easily see that zen3000 should choose to play black when he can, as his odds of winning are much higher. When playing white, the raw data might suggest to avoid such a scenario, but the model seems to suggest otherwise, and that perhaps some more practice is a better suggestion.
+
+## Future Improvements and Revisions
+
+There are many things you could do with chess data. Something that might be more interesting here would be to predict victory with the victory status as well, so if you wanted to play as white, and also win by having your opponent resign, what would be the best strategy. Other things might be to predict the next best move, or predict the winner based on the board game state. 
+
+Aside from other ideas, this project had a few limitations with computational power. Logistic regression was an algoirthm that took a bit too long to train, so not a lot was done in grid search for it. XGBoost could make use of a gpu, so it was a bit faster, but it also has a lot more hyperparameters to choose from, so something to explore more would be to continue hyperparameter tuning to get an even better model. Afterall, while a Cohen Kappa score of 0.67 is good, something at least would be ideal.
+
+## Credits
+
+Thanks to Mitchell J for uploading the data onto Kagle, and to Silvia Seceleanu for being an awesome Springboard mentor.
